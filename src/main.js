@@ -1,3 +1,8 @@
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector("dialog + button");
+const closeButton = document.querySelector("dialog button");
+const confirmBtn = document.querySelector("#confirmBtn")
+const newBookModal = document.querySelector("#new-book-modal")
 const booksContainer = document.querySelector(".books-container")
 const userLibrary = [];
 
@@ -12,8 +17,8 @@ function addBookToLibrary(title, author, pageAmount, isRead) {
   userLibrary.push(new Book(title, author, pageAmount, isRead));
 }
 
-addBookToLibrary("Book1", "jose", 5, true);
-addBookToLibrary("Book2", "pepe", 50, false);
+addBookToLibrary("Book1 Book1Book1 Book1Book1", "jose", 5, true);
+addBookToLibrary("loremBook2Book2Book2Book2", "pepe", 50, false);
 addBookToLibrary("Book3", "maria", 70, true);
 addBookToLibrary("Book4", "carlos", 10, false);
 addBookToLibrary("Book5", "daniel", 45, true);
@@ -25,37 +30,41 @@ console.log(userLibrary);
 function displayBooks() {
   
   const booksHTML = userLibrary.map(book => `
-    <div class="book-container flex flex-col items-center justify-center w-60 p-2 rounded-md bg-blue-300">
-      <h3>${book.title}</h3>
-      <div class="book-info">
-        <p>${book.author}</p>
-        <p>${book.pages}</p>
-        <p>${book.isRead ? 'Read' : 'Not Read'}</p>
-      </div>
-    </div>
+    <div class="book-container flex flex-col items-center justify-evenly w-84  p-2 rounded-md text-xl bg-blue-300">
+      <h3 class="text-2xl font-bold text-center w-60 break-words">${book.title}</h3>
+      <div class="book-info flex flex-col items-start justify-start">
+        <p>Author ${book.author}</p>
+        <p>Pages: ${book.pages}</p>
+        <p>Read? ${book.isRead ? 'Read' : 'Not Read'}</p>
+        </div class="flex gap-10 text-xs">
+        <button class=" bg-lime-700 text-white">Mark as read</button>
+        <button class=" bg-red-700 text-white">Remove</button>
+        </div>
   `).join('');
   booksContainer.innerHTML = booksHTML;
-
-
-  // userLibrary.forEach(book => {
-  //   const bookContainer = document.createElement("div");
-  //   const bookTitle = document.createElement("h3");
-  //   const bookInfo = document.createElement("div")
-  //   const bookAuthor = document.createElement("p");
-  //   const bookPages = document.createElement("p");
-  //   const bookIsRead = document.createElement("p");
-    
-  //   bookTitle.innerText = book.title;
-  //   bookAuthor.innerText = book.author;
-  //   bookPages.innerText = book.pages;
-  //   bookIsRead.innerText = book.isRead;
-
-  //   booksContainer.appendChild(bookContainer);
-  //   bookContainer.appendChild(bookTitle);
-  //   bookContainer.appendChild(bookInfo);
-  //   bookInfo.append(bookAuthor, bookPages, bookIsRead);
-  // })
 }
+
+showButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+// "Close" button closes the dialog
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
+
+confirmBtn.addEventListener("click", (event) => {
+  event.preventDefault(); // We don't want to submit this fake form
+  
+  const title = document.querySelector("#title").value;
+  const author = document.querySelector("#author").value;
+  const pages = document.querySelector("#pages").value;
+  const isRead = document.querySelector("#isRead").value;
+
+  addBookToLibrary(title, author, pages, isRead)
+  displayBooks()
+  newBookModal.close(); // Have to send the select box value here.
+});
 
 displayBooks()
 
