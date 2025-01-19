@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/shelved/assets/image-BMbLznss.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shelved</title>
+    <script type="module" crossorigin src="/shelved/assets/index-3_NdLUBf.js"></script>
+    <link rel="stylesheet" crossorigin href="/shelved/assets/index-DfG2q4S7.css">
+  </head>
+  <body class="bg-primary-color font-serif">
+    <header class="flex flex-col items-center justify-center gap-2 mt-10 text-primary-text-color">
+      <div class="flex items-center justify-center gap-2">
+        <h1 class="font-bold text-5xl">Shelved</h1>
+        <img src="/shelved/assets/image-BMbLznss.png" alt="logo" class="w-16">
+      </div>
+      <p class="w-1/2 text-2xl text-center break-words">Welcome to your own personal library, a collection of books where you can add new books and mark those that you have read</p>
+    </header>
+    <main class="p-10 flex flex-col items-center justify-center gap-5">
+      <h2 class="text-3xl text-center">Your collection</h2>
+      <div class="flex gap-5 text-xl">
+        <div class="flex gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+          </svg>              
+          <p id="book-amount-display" class="flex"> Books added:</p>
+        </div>  
+          <div class="flex gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+            </svg>              
+            <p id="read-books-display">Books read:</p>
+          </div>
+      </div>
+      <div class="books-container flex flex-wrap justify-center gap-10 p-5 w-3/4 border-2 bg-secondary-color border-slate-900 rounded-xl">
+      </div>      
+      <div>
+        <button class="show-modal-button px-2 py-3 rounded-md bg-atention-color hover:bg-orange-600 text-white text-2xl">Add new book</button>
+        <dialog id="new-book-modal" class="hidden bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md text-xl">
+          <form>
+            <fieldset>
+              <legend class="text-2xl font-bold mb-4">Book details</legend>
+              <div class="form-group mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-700">Book Title:</label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  required
+                  placeholder="Enter book title"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                >
+              </div>
+        
+              <div class="form-group mb-4">
+                <label for="author" class="block text-sm font-medium text-gray-700">Author:</label>
+                <input
+                  type="text"
+                  id="author"
+                  name="author"
+                  required
+                  placeholder="Enter author name"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                >
+              </div>
+        
+              <div class="form-group mb-4">
+                <label for="pages" class="block text-sm font-medium text-gray-700">Number of Pages:</label>
+                <input
+                  type="number"
+                  id="pages"
+                  name="pages"
+                  min="1"
+                  required
+                  placeholder="Enter number of pages"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                >
+              </div>
+        
+              <div class="form-group mb-4">
+                <label for="isRead" class="block text-sm font-medium text-gray-700">Reading Status:</label>
+                <select
+                  id="isRead"
+                  name="isRead"
+                  required
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                >
+                  <option value="">Select status</option>
+                  <option value="true">Read</option>
+                  <option value="false">Not Read</option>
+                </select>
+              </div>
+            </fieldset>
+        
+            <div class="flex justify-end gap-4 mt-6">
+              <button
+                value="cancel"
+                formmethod="dialog"
+                class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+              >
+                Cancel
+              </button>
+              <button
+                id="confirmBtn"
+                value="default"
+                class="px-4 py-2 bg-atention-color text-white rounded-md hover:bg-orange-600"
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </dialog>
+      </div>
+    </main>
+  </body>
+</html>
