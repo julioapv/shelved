@@ -7,6 +7,11 @@
     --secondary-color: #edede9;
     --card-color:  #dda15e;
     --primary-text-color: #2b2d42;
+    --atention-color: #e76f51;
 }
 
+.book-container {
+    box-shadow: 3px 3px 6px #a67947,
+                0px 0px 0px
+}
 

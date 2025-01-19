@@ -11,6 +11,7 @@ export default {
         'secondary-color': 'var(--secondary-color)',
         'card-color': 'var(--card-color)',
         'primary-text-color': 'var(--primary-text-color)',
+        'atention-color': 'var(--atention-color)'
       },
     },
   },

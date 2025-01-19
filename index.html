@@ -2,79 +2,100 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/public/assets/image.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/index.css">
     <link rel="stylesheet" href="./src/style.css">
     <title>Shelved</title>
   </head>
-  <body class="bg-primary-color">
-    <header class="flex flex-col items-center justify-center gap-2 mb-5 text-primary-text-color">
-      <h1 class="font-bold text-5xl">Shelved</h1>
-      <p class="">Welcome to your collection of books where you can add, edit and mark those you that you have read</p>
-    </header>
-    <main class="p-10 flex flex-col items-center gap-8">
-      <h2 class="text-3xl text-center">Your collection</h2>
-      <div class="books-container flex flex-wrap justify-center gap-10 p-5 w-4/5 border-2 bg-secondary-color border-slate-500 ">
+  <body class="bg-primary-color font-serif">
+    <header class="flex flex-col items-center justify-center gap-2 mt-10 text-primary-text-color">
+      <div class="flex items-center justify-center gap-2">
+        <h1 class="font-bold text-5xl">Shelved</h1>
+        <img src="./public/assets/image.png" alt="logo" class="w-16">
       </div>
-
+      <p class="w-1/2 text-2xl text-center break-words">Welcome to your own personal library, a collection of books where you can add new books and mark those that you have read</p>
+    </header>
+    <main class="p-10 flex flex-col items-center justify-center gap-5">
+      <h2 class="text-3xl text-center">Your collection</h2>
+      <div class="books-container flex flex-wrap justify-center gap-10 py-5 w-4/5 border-2 bg-secondary-color border-slate-900 rounded-xl">
+      </div>      
       <div>
-        <dialog id="new-book-modal">
+        <button class="show-modal-button px-2 py-3 rounded-md bg-atention-color hover:bg-orange-600 text-white text-2xl">Add new book</button>
+        <dialog id="new-book-modal" class="hidden bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md text-xl">
           <form>
             <fieldset>
-              <legend>Book details</legend>
-              <div class="form-group">
-                <label for="title">Book Title:</label>
-                <input 
-                  type="text" 
-                  id="title" 
-                  name="title" 
+              <legend class="text-2xl font-bold mb-4">Book details</legend>
+              <div class="form-group mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-700">Book Title:</label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
                   required
                   placeholder="Enter book title"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
                 >
               </div>
-          
-              <div class="form-group">
-                <label for="author">Author:</label>
-                <input 
-                  type="text" 
-                  id="author" 
-                  name="author" 
+        
+              <div class="form-group mb-4">
+                <label for="author" class="block text-sm font-medium text-gray-700">Author:</label>
+                <input
+                  type="text"
+                  id="author"
+                  name="author"
                   required
                   placeholder="Enter author name"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
                 >
               </div>
-          
-              <div class="form-group">
-                <label for="pages">Number of Pages:</label>
-                <input 
-                  type="number" 
-                  id="pages" 
+        
+              <div class="form-group mb-4">
+                <label for="pages" class="block text-sm font-medium text-gray-700">Number of Pages:</label>
+                <input
+                  type="number"
+                  id="pages"
                   name="pages"
                   min="1"
                   required
                   placeholder="Enter number of pages"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
                 >
               </div>
-          
-              <div class="form-group">
-                <label for="isRead">Reading Status:</label>
-                <select id="isRead" name="isRead" required>
+        
+              <div class="form-group mb-4">
+                <label for="isRead" class="block text-sm font-medium text-gray-700">Reading Status:</label>
+                <select
+                  id="isRead"
+                  name="isRead"
+                  required
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                >
                   <option value="">Select status</option>
                   <option value="true">Read</option>
                   <option value="false">Not Read</option>
                 </select>
               </div>
-
             </fieldset>
-
-            <div>
-              <button value="cancel" formmethod="dialog">Cancel</button>
-              <button id="confirmBtn" value="default">Confirm</button>
+        
+            <div class="flex justify-end gap-4 mt-6">
+              <button
+                value="cancel"
+                formmethod="dialog"
+                class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+              >
+                Cancel
+              </button>
+              <button
+                id="confirmBtn"
+                value="default"
+                class="px-4 py-2 bg-atention-color text-white rounded-md hover:bg-orange-600"
+              >
+                Confirm
+              </button>
             </div>
           </form>
         </dialog>
-        <button class="px-2 py-3 rounded-full bg-purple-500 text-white">Add new book</button>
       </div>
     </main>
     <script type="module" src="/src/main.js"></script>

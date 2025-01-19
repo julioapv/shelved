@@ -1,5 +1,5 @@
 const dialog = document.querySelector("dialog");
-const showButton = document.querySelector("dialog + button");
+const showButton = document.querySelector(".show-modal-button");
 const closeButton = document.querySelector("dialog button");
 const confirmBtn = document.querySelector("#confirmBtn")
 const newBookModal = document.querySelector("#new-book-modal")
@@ -17,8 +17,6 @@ function Book(title, author, pageAmount, isRead) {
 function addBookToLibrary(title, author, pageAmount, isRead) {
   userLibrary.push(new Book(title, author, pageAmount, isRead));
 }
-
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
 
 booksContainer.addEventListener("click", (e) => {
   const bookContainer = e.target.closest(".book-container")
@@ -52,18 +50,30 @@ function toggleReadStatus(bookId) {
 function displayBooks() {
   const booksHTML = userLibrary.map(book => 
     `
-    <div class="book-container flex flex-col justify-evenly w-74 h-96 p-5 rounded-md text-xl bg-card-color" data-book-id="${book.id}">
-      <h3 class="text-2xl font-bold text-center w-60 break-words">${book.title}</h3>
+    <div class="book-container flex flex-col justify-evenly w-74 h-80 p-5 rounded-md text-xl bg-card-color" data-book-id="${book.id}">
+      <h3 class="text-2xl font-bold text-center w-60 break-words italic">${book.title}</h3>
       <div class="book-info flex-col items-start justify-start">
         <p><span class="font-bold">Author:</span> ${book.author}</p>
         <p><span class="font-bold">Pages:</span> ${book.pages}</p>
         <p><span class="font-bold">Status:</span> ${book.isRead ? 'Read' : 'Not Read'}</p>
       </div>
       <div class="flex justify-center items-center gap-2 text-md">
-        <button class="mark-as-read-button rounded-lg px-2 py-3 cursor-pointer w-24 break-words ${book.isRead ? 'bg-gray-700' : 'bg-lime-700'} text-white">
-          ${book.isRead ? 'Mark as unread' : 'Mark as read'}
+        <button class="flex gap-1 items-center justify-center mark-as-read-button rounded-lg px-3 py-4 w-32 cursor-pointer break-words ${book.isRead ? 'bg-gray-600' : 'bg-lime-600'} ${book.isRead ? 'hover:bg-gray-700' : 'hover:bg-lime-700'} text-white">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+          </span>  
+          ${book.isRead ? 'Unread' : 'Read'}
         </button>
-        <button class="delete-book-button rounded-lg px-2 py-3 cursor-pointer bg-red-700 text-white">Remove</button>
+        <button class="delete-book-button flex gap-1 items-center rounded-lg px-3 py-4 w-32 cursor-pointer bg-red-700 hover:bg-red-900 text-white">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </span>
+          Remove
+        </button>
       </div>
     </div>
   `).join('');
@@ -72,10 +82,12 @@ function displayBooks() {
 
 showButton.addEventListener("click", () => {
   dialog.showModal();
+  dialog.classList.remove("hidden")
 });
 
 closeButton.addEventListener("click", () => {
   dialog.close();
+  dialog.classList.add("hidden")
 });
 
 confirmBtn.addEventListener("click", (event) => {
@@ -92,6 +104,7 @@ confirmBtn.addEventListener("click", (event) => {
     addBookToLibrary(title, author, pages, isRead)
     displayBooks()
     newBookModal.close();
+    newBookModal.classList.add("hidden")
 
     document.querySelector("#title").value = '';
     document.querySelector("#author").value = '';
@@ -101,5 +114,10 @@ confirmBtn.addEventListener("click", (event) => {
   
 });
 
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
 displayBooks()
 
