@@ -1,9 +1,11 @@
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector(".show-modal-button");
 const closeButton = document.querySelector("dialog button");
-const confirmBtn = document.querySelector("#confirmBtn")
-const newBookModal = document.querySelector("#new-book-modal")
-const booksContainer = document.querySelector(".books-container")
+const confirmBtn = document.querySelector("#confirmBtn");
+const newBookModal = document.querySelector("#new-book-modal");
+const booksContainer = document.querySelector(".books-container");
+const booksAmountDisplay = document.querySelector("#book-amount-display");
+const readBooksDisplay = document.querySelector("#read-books-display");
 const userLibrary = [];
 
 function Book(title, author, pageAmount, isRead) {
@@ -48,6 +50,11 @@ function toggleReadStatus(bookId) {
 }
 
 function displayBooks() {
+  let booksAmount = userLibrary.length;
+  let readBooks = userLibrary.filter(book => book.isRead).length
+  
+  booksAmountDisplay.textContent = `Books added: ${booksAmount}`
+  readBooksDisplay.textContent = `Books read: ${readBooks}`
   const booksHTML = userLibrary.map(book => 
     `
     <div class="book-container flex flex-col justify-evenly w-74 h-80 p-5 rounded-md text-xl bg-card-color" data-book-id="${book.id}">
@@ -115,9 +122,7 @@ confirmBtn.addEventListener("click", (event) => {
 });
 
 addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
+
+
 displayBooks()
 
