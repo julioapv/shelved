@@ -7,6 +7,7 @@ const booksContainer = document.querySelector(".books-container")
 const userLibrary = [];
 
 function Book(title, author, pageAmount, isRead) {
+  this.id = Date.now().toString();
   this.title = title;
   this.author = author;
   this.pages = pageAmount;
@@ -17,29 +18,54 @@ function addBookToLibrary(title, author, pageAmount, isRead) {
   userLibrary.push(new Book(title, author, pageAmount, isRead));
 }
 
-addBookToLibrary("Book1 Book1Book1 Book1Book1", "jose", 5, true);
-addBookToLibrary("loremBook2Book2Book2Book2", "pepe", 50, false);
-addBookToLibrary("Book3", "maria", 70, true);
-addBookToLibrary("Book4", "carlos", 10, false);
-addBookToLibrary("Book5", "daniel", 45, true);
-addBookToLibrary("Book6", "fabiana", 95, true);
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, false);
 
-console.log(userLibrary);
+booksContainer.addEventListener("click", (e) => {
+  const bookContainer = e.target.closest(".book-container")
+  if (!bookContainer) return;
 
-// Function that displays each book in the page
+  const bookId = bookContainer.dataset.bookId;
+
+  if (e.target.classList.contains("mark-as-read-button")) {
+    toggleReadStatus(bookId);
+  } else if (e.target.classList.contains("delete-book-button")) {
+    deleteBook(bookId);
+  }
+});
+
+function deleteBook(bookId) {
+  const bookIndex = userLibrary.findIndex(book => book.id === bookId);
+  if (bookIndex !== -1) {
+    userLibrary.splice(bookIndex, 1);
+    displayBooks();
+  }
+}
+
+function toggleReadStatus(bookId) {
+  const book = userLibrary.find(book => book.id === bookId);
+  if (book) {
+    book.isRead = !book.isRead;
+    displayBooks();
+  }
+}
+
 function displayBooks() {
-  
-  const booksHTML = userLibrary.map(book => `
-    <div class="book-container flex flex-col items-center justify-evenly w-84  p-2 rounded-md text-xl bg-blue-300">
+  const booksHTML = userLibrary.map(book => 
+    `
+    <div class="book-container flex flex-col justify-evenly w-74 h-96 p-5 rounded-md text-xl bg-card-color" data-book-id="${book.id}">
       <h3 class="text-2xl font-bold text-center w-60 break-words">${book.title}</h3>
-      <div class="book-info flex flex-col items-start justify-start">
-        <p>Author ${book.author}</p>
-        <p>Pages: ${book.pages}</p>
-        <p>Read? ${book.isRead ? 'Read' : 'Not Read'}</p>
-        </div class="flex gap-10 text-xs">
-        <button class=" bg-lime-700 text-white">Mark as read</button>
-        <button class=" bg-red-700 text-white">Remove</button>
-        </div>
+      <div class="book-info flex-col items-start justify-start">
+        <p><span class="font-bold">Author:</span> ${book.author}</p>
+        <p><span class="font-bold">Pages:</span> ${book.pages}</p>
+        <p><span class="font-bold">Status:</span> ${book.isRead ? 'Read' : 'Not Read'}</p>
+      </div>
+      <div class="flex justify-center items-center gap-2 text-md">
+        <button class="mark-as-read-button rounded-lg px-2 py-3 cursor-pointer w-24 break-words ${book.isRead ? 'bg-gray-700' : 'bg-lime-700'} text-white">
+          ${book.isRead ? 'Mark as unread' : 'Mark as read'}
+        </button>
+        <button class="delete-book-button rounded-lg px-2 py-3 cursor-pointer bg-red-700 text-white">Remove</button>
+      </div>
+    </div>
   `).join('');
   booksContainer.innerHTML = booksHTML;
 }
@@ -48,22 +74,31 @@ showButton.addEventListener("click", () => {
   dialog.showModal();
 });
 
-// "Close" button closes the dialog
 closeButton.addEventListener("click", () => {
   dialog.close();
 });
 
 confirmBtn.addEventListener("click", (event) => {
-  event.preventDefault(); // We don't want to submit this fake form
+  event.preventDefault();
   
   const title = document.querySelector("#title").value;
   const author = document.querySelector("#author").value;
   const pages = document.querySelector("#pages").value;
   const isRead = document.querySelector("#isRead").value;
 
-  addBookToLibrary(title, author, pages, isRead)
-  displayBooks()
-  newBookModal.close(); // Have to send the select box value here.
+  if(!title || !author || !pages) {
+    alert("Please don't leave any empty fields")
+  } else {
+    addBookToLibrary(title, author, pages, isRead)
+    displayBooks()
+    newBookModal.close();
+
+    document.querySelector("#title").value = '';
+    document.querySelector("#author").value = '';
+    document.querySelector("#pages").value = '';
+    document.querySelector("#isRead").value = 'false';
+  }
+  
 });
 
 displayBooks()
